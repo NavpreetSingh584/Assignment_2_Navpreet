@@ -3,10 +3,10 @@ import express, { Express } from "express";
 import morgan from "morgan";
 
 import v1Routes from "./api/v1/routes";
-import { HTTP_STATUS } from "./constants/httpStatus";
-import { errorHandler } from "./middleware/errorHandler";
-import { setTickets } from "./api/v1/services/ticketService";
-import { sampleTickets } from "./data/tickets";
+import { HTTP_STATUS } from "./constants/httpConstants";
+import { errorHandler } from "../src/middleware/errorHandler";
+import { setTickets } from "../src/api/v1/services/ticketService";
+import { sampleTickets } from "../src/data/tickets";
 
 // initialize the express application
 const app: Express = express();

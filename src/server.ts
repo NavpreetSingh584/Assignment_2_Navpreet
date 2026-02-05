@@ -1,4 +1,4 @@
-import app from "./app";
+import app from "../src/app";
 
 // import server type definition
 import { Server } from "http";

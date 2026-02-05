@@ -1,6 +1,6 @@
 // Import Ticket interface from the service layer
 // This ensures our sample data follows the correct structure
-import { Ticket } from "../api/v1/services/ticketService";
+import { Ticket } from "../../src/api/v1/services/ticketService";
 
 /**
  * Helper function to generate ISO timestamps
