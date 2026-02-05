@@ -8,7 +8,9 @@ import type { Ticket } from "../../../data/tickets";
  * @param req - The express Request
  * @param res - The express Response
  * @param next - The express middleware chaining function
- */
+ */                 
+
+
 export const getTickets = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const tickets: Ticket[] = await getAllTickets();
