@@ -77,3 +77,4 @@ describe("Ticket Routes (Integration)", () => {
     expect(res.body.message).toBe("Ticket deleted successfully");
   });
 });
+        

@@ -17,6 +17,7 @@ function daysAgo(days: number): string {
   return d.toISOString();
 }
 
+
 // Initial sample data (similar to the table, but relative dates)
 const seedTickets: Ticket[] = [
   { id: 1, title: "Update footer copyright year", description: "Footer still shows 2024", priority: "low", status: "open", createdAt: daysAgo(3) },
