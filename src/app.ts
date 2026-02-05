@@ -2,11 +2,9 @@
 import express, { Express } from "express";
 import morgan from "morgan";
 
-import v1Routes from "./api/v1/routes";
 import { HTTP_STATUS } from "./constants/httpConstants";
-import { errorHandler } from "../src/middleware/errorHandler";
-import { setTickets } from "../src/api/v1/services/ticketService";
-import { sampleTickets } from "../src/data/tickets";
+import v1Router from "./api/v1";
+import { errorHandler } from "./middleware/errorHandler";
 
 // initialize the express application
 const app: Express = express();
@@ -20,19 +18,15 @@ interface HealthCheckResponse {
   version: string;
 }
 
-// Seed in-memory ticket data on startup
-setTickets(sampleTickets);
-
 // Middleware START
 app.use(morgan("combined"));
 
 // Ensures incoming body is correctly parsed to JSON, otherwise req.body would be undefined
 app.use(express.json());
-
 // Middleware END
 
 // respond to GET request at endpoint "/" with message
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.status(HTTP_STATUS.OK).json({ message: "Hello World" });
 });
 
@@ -40,24 +34,23 @@ app.get("/", (req, res) => {
  * Health check endpoint that returns server status information
  * @returns JSON response with server health metrics
  */
-app.get("/api/v1/health", (req, res) => {
+app.get("/api/v1/health", (_req, res) => {
   const healthData: HealthCheckResponse = {
     status: "OK",
     uptime: process.uptime(),
     timestamp: new Date().toISOString(),
-    version: "1.0.0"
+    version: "1.0.0",
   };
 
   res.status(HTTP_STATUS.OK).json(healthData);
 });
 
 // Route Imports START
-// "/api/v1" will prefix all v1 routes (including /tickets)
-app.use("/api/v1", v1Routes);
-
+// "/api/v1" will prefix all v1 routes (ex: /api/v1/tickets)
+app.use("/api/v1", v1Router);
 // Route Imports END
 
-// Global Error Handler (must be LAST)
+// Global error handler LAST
 app.use(errorHandler);
 
 export default app;
